@@ -6,11 +6,14 @@
 - functions initially **lack** context.
 - they receive context **upon invocation**, thus a function's execution context is determined by _how_ it is invoked\*
 
+- the concept of an "execution context" involves information about 2 things: a variable environment and a `this` binding which references the context object of the currently-executing code being evaluated
+
 ## `this`
 
-- `this` is the context keyword
-- behaves like a dynamic variable in that it references the "context object" of an executing function or method when referenced inside said function body
-- `this`' value depends on if it was used inside/outside the scope introduced by an executing function and, if inside a function, upon how that enclosing function was defined (arrow functions) and invoked (constructor invocation, method invocation, function invocation, indirect invocation).
+- `this` is a keyword
+- also referred to as a "_context variable_"
+- behaves similarly to a variable in that it dynamically references the "context object" of an executing function or method when used inside said function body
+- `this`' value depends on if it was used inside/outside the scope introduced by an executing function and, if inside a function, upon how that enclosing function was defined (arrow functions) or invoked (constructor invocation, method invocation, function invocation, indirect invocation).
 
 ### Types of Context Setting
 
@@ -31,11 +34,18 @@
 
 ### Special Note on Arrow Functions
 
-- Arrow functions do not possess their own `this` binding.
-- they inherit `this` (and thus, receive their e.c.) from the enclosing lexical scope where they are defined at the time of their definition (`this` is not determined "lexically")
+- Arrow functions do not possess their own `this` binding
+- they inherit `this` (and thus, receive their e.c. implicitly) from the enclosing lexical scope _where_ they are defined at the _time_ of their definition
+
+> "the value of this when using an arrow function is the current value of this in the calling function"
+
+- note: the execution context of an arrow function is **not** determined "lexically"; since `this`' value depends on both a program's state at time of definition + the lexical scope of the definition at time of definition
+
+### Special Note on scope vs execution context (`this`)
+
+- the rules which govern `this` are distinct from the rules that govern variable scope
+- we can think of execution context as both an object and the executing code's variable environment
 
 ### Key Takeaway
 
-- different execution contexts exist and are often represented by objects
-- all functions execute "within" these context objects
-- being able to track and understand execution context is extremely important in JS since JS functions are _first class_ and as such can _pass through_ and execute in different contexts throughout a program
+- being able to track and understand execution context is extremely important in JS since JS functions are _first class_ and as such can _pass through_ and execute in different contexts throughout a program's

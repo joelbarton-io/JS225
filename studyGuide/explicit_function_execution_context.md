@@ -5,8 +5,9 @@
 - Function object methods `apply()` and `call()` can be used to tie a function object to an explicit context object, thereby explicitly configuring the execution context for a function.
 - “Binding a function to a context object occurs when you execute the function, not when you define it.”
 - The method `bind`:
-  - Returns a new function that calls the original function with the context supplied to `bind` as its first argument.
-  - The original function remains unaltered; only the returned function gets the new binding.
+  - Returns a new function with a pre-configured execution context specified by the `bind` method's first argument
+  - note that the original function object remains unaltered; only the returned function gets the new binding.
+  - the **only** way to uncouple the bound function object from its context is via _constructor invocation_
 
 ## **Differences between `Function` methods**
 

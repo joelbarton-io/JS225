@@ -1,6 +1,6 @@
 # Partial Function Application
 
-Partial function application is a technique that involves producing a new function by pre-filling some of the arguments of the original function.
+- a technique that involves producing a new function by applying some of the arguments of the original function.
 
 ## Core Principles
 
@@ -14,45 +14,45 @@ Partial function application is a technique that involves producing a new functi
 
 ## Role of Closures
 
-- **Definition**: "closure lets us define private data that persists for the function's lifetime."
-- **Functionality**: Closures facilitate the packaging together of functionality with private data. The data of the closure can only be accessed with the returned function object which created the closure.
-- **Standard Language**: LS frequently mentions variables and their values being accessible "THROUGH A CLOSURE or VIA CLOSURE".
+- [closure definition](./closures.md)
+- **Functionality**: Closure facilitate the packaging together of private data and variables with functionality that uses that private data/variables. The data of the closure can only be accessed with the returned function object which created the closure.
 
 ## Insights & Examples
 
-- It seems when a new function is created, it retains access to variables not just in the outer scope of the new function but all enclosing scopes.
+- **Standard Language**: LS frequently mentions variables and their values being accessible "THROUGH A CLOSURE or VIA CLOSURE".
+- It seems when a new function is created, it maintains a reference to the variables it uses not just in the immediate enclosing scope of the new function but all enclosing scopes.
 
-  - exensible/general purpose partial function application example:
+### general purpose partial function application example:
 
-  ```jsx
-  function partial(primary, first) {
-    return function (second) {
-      return primary(first, second);
+```jsx
+function partial(primary, first) {
+  return function (second) {
+    return primary(first, second);
+  };
+}
+const add = (a, b) => a + b;
+const add1 = partial(add, 1);
+add1(2); // -> 2
+```
+
+```javascript
+function outerFunction(b) {
+  // also enclosing scope of returned function
+  function c() {
+    let e = null;
+
+    // enclosing scope of returned function
+    return function () {
+      // retains access to vars `e` and `b` through closure
+      console.log(b);
+      return e;
     };
   }
-  const add = (a, b) => a + b;
-  const add1 = partial(add, 1);
-  add1(2); // -> 2
-  ```
 
-  ```javascript
-  function outerFunction(b) {
-    // also enclosing scope of returned function
-    function c() {
-      let e = null;
+  return c(b);
+}
 
-      // enclosing scope of returned function
-      return function () {
-        // retains access to vars `e` and `b` through closure
-        console.log(b);
-        return e;
-      };
-    }
+let myFn = outerFunction("hi there");
 
-    return c(b);
-  }
-
-  let myFn = outerFunction("hi there");
-
-  myFn();
-  ```
+myFn();
+```
