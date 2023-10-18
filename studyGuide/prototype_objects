@@ -1,0 +1,2 @@
+when you try to access a property on an object, JavaScript will look for that property on the object itself, and if it doesn't find it, it will look up the prototype chain until it finds the searched-for property or reaches an object with
+a null prototype.
