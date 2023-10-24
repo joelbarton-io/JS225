@@ -2,11 +2,67 @@
 
 ## Overview
 
-- **Context loss issues** emerge since JS functions are first-class
+- **Context loss issues** emerge since JS functions are first-class and as such can be packaged up,passed around, and invoked in different contexts
 - **scenarios**
-  - A Function object that is dependent upon a context object are passed around (e.g they reference `this` in their body)
-  - direct references might later be out of scope, have had their data garbage collected, or have altered state by the time of invocation
-  - The desired context object is often available when the function object was initially shared or defined.
+
+1. [remove a function object from its container](/code_snippets/remove_function_object_from_container.js)
+
+- wherein a `Function` object that is dependent upon the data of its original container where it was defined as a member property is removed from that original container and later invoked elsewhere using a (potentially) different invocation type
+
+```jsx
+const container = {
+  friendlyGreeting: "Howdy partner!",
+  sayHi: function () {
+    console.log(`${this.friendlyGreeting}`);
+  },
+};
+
+const friendlyGreeting = container.sayHi; // property accessor
+
+friendlyGreeting(); // TypeError: tried to access the `sayHi` property of undefined
+```
+
+2. [internal `function` "losing" method context](/code_snippets/internal_fn_loses_method_ctx.js)
+
+```jsx
+const container = {
+  method: function () {
+    console.log(this); // `container`: { method: [Function: method] }
+    // `this` doesn't propagate to `internalFn`
+    function internalFn() {
+      console.log(this);
+    }
+    // `internalFn` has implicit function execution context
+    internalFn(); // `window` or `global` or `undefined` depending on env & if strict mode
+  },
+};
+
+container.method(); // `method` has implicit method execution context
+```
+
+- wherein a method's body encloses a function definition and the `function` is later invoked within the scope that method's invocation introduces
+
+3. [function passed as argument "losing" its context](/code_snippets/fn_passed_as_arg_context_loss.js)
+
+- contingent upon the nature of the function definition since an arrow function wouldn't "lose" its context in the same way a function declaration would, just something to keep in mind!
+
+```jsx
+function cb(num) {
+  console.log(this); // logs: `undefined` `undefined` `undefined`
+  return this + num;
+}
+
+const arr = [1, 2, 3];
+
+// cb is invoked via normal function invocation (thus it has implicit function execution context)
+let mappedArr = arr.map(cb);
+console.log(mappedArr); // logs: [NaN, NaN, NaN]
+```
+
+4. function that relies on a direct (read: "named") reference to some context object
+
+- direct reference to some context in a function body might later be out of scope at time of function invocation, later rely on an alias, have had their data garbage collected, or have altered state at time of eventual invocation
+- The desired context object is often available when the function object was initially defined and passed
 
 ## Solutions to Retain Context
 

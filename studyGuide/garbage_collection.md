@@ -28,10 +28,11 @@
 - Both variables and property names contribute to a value’s reference count.
 - **As long as an object or value remains accessible, it won't be garbage collected**.
 - Modern JavaScript employs the **Mark and Sweep** algorithm for garbage collection.
+- a limitation of **Mark and Sweep** algorithms is the potential to introduce memory fragmentation where memory is non-contiguous or broken up into chunks
 
 ## Closures and Garbage Collection
 
-- Closures retain local variables, causing the reference to persist and preventing garbage collection.
+- Closures hold or retain relevant identifiers that they need which are present in the closure's enclosing lexical scope causing the reference to persist and preventing garbage collection.
 - If a situation necessitates the removal of a closure or a reference, you can assign `null` to the item referencing the closure or reference, which is termed as **dereferencing**.
   - Once dereferenced, that data becomes eligible for garbage collection.
 
