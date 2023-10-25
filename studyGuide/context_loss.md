@@ -22,7 +22,9 @@ const friendlyGreeting = container.sayHi; // property accessor
 friendlyGreeting(); // TypeError: tried to access the `sayHi` property of undefined
 ```
 
-2. [internal `function` "losing" method context](/code_snippets/internal_fn_loses_method_ctx.js)
+2. [internal `function` "losing" enclosing method's context](/code_snippets/internal_fn_loses_method_ctx.js)
+
+- **issue:** scenario where a method's body encloses a `function` definition and the `function` is later invoked within the scope which that method's invocation introduces -> `this`' value will depend upon how the internal function is invoked (& defined);
 
 ```jsx
 const container = {
@@ -39,8 +41,6 @@ const container = {
 
 container.method(); // `method` has implicit method execution context
 ```
-
-- wherein a method's body encloses a function definition and the `function` is later invoked within the scope that method's invocation introduces
 
 3. [function passed as argument "losing" its context](/code_snippets/fn_passed_as_arg_context_loss.js)
 
@@ -68,32 +68,35 @@ console.log(mappedArr); // logs: [NaN, NaN, NaN]
 
 ### 1. **Hard Binding**
 
-- this approach defers execution and retains desired context when passing the function object around throughout a program
+- this approach defers execution and retains desired context when passing the `function` object around throughout a program
+- Utilize `bind` with function expressions (note: not with function declaration syntax).
+- Note: You can use `bind` directly with an anonymous function argument in a method.
 
-### 2. **Methods which define Internal Functions**
+### 2. **use an arrow function**
 
-- since the execution context in a method invocation doesn't propagate to enclosed functions, issues will arise:
-- **Issue**: If an internal function relies on `this` and is invoked without a specific context or not defined using the arrow syntax, defaults to the global context (`window` in Browsers or `globalThis` in Node.js).
+- Employ **arrow functions** which base the value of `this` on their surrounding environment's `this` during their definition based; they don't get their "own" `this` binding but rather "inherit" it from their definition's surrounding code
 
-  - **Solutions**:
-    1. **Lexical Scoping**: Retain the context using a local variable: `let self = this;`
-    2. Use `call` or `apply` to explicitly provide the context argument.
-    3. Utilize `bind` with function expressions (not with declarations). Note: You can use `bind` directly with an anonymous function argument in a method.
-    4. Employ **arrow functions** which base the value of `this` on their surrounding environment's `this` during their definition; they don't get their own `this` binding
+### 3. **Lexical Scoping**
 
-### 3. **Insights on Arrow Functions**
+- Retain the context using a local variable: `let self = this;`
+
+### 4. **Indirect Invocation**
+
+- Use `call` or `apply` to explicitly provide the context argument.
+
+# **Insights on Arrow Functions**
 
 - Arrow functions determine `this` based on their surrounding environment during their definition.
   > "The `this` binding for arrow functions is determined by the surrounding environment's execution context at the time of the arrow function's definition."
-- They can't be re-binded to a new `this`.
+- They can't be re-binded to a new context object
 - they also cannot be invoked as constructors
 
 ## Personal Reflections and Observations
 
-- There seems to be a tendency to describe context loss as a scenario where a context object is lost by a function/method, rather than the function/method being dissociated from its context. It's uncertain whether this perspective is a potential comprehension issue or merely a different viewpoint.
+- There seems to be a tendency to describe context loss as a scenario where a context object is lost by a function/method, rather than the function/method being dissociated from its context. It's uncertain whether this perspective is a potential comprehension issue or merely a different way of thinking about execution context
 
 ## Launch School Phrasing
 
-- LS refers to `this` as a: “context variable”
+- LS refers to `this` as a: "context variable"
 - "Functions as arguments lose the surrounding context."
 - References include "context argument" and "containing object", method "receiver"
