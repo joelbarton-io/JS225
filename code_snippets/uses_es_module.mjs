@@ -4,3 +4,6 @@ const mySecret = new SecretClass('ho ho ho');
 const myOtherSecret = new Secret('hi hi hi');
 mySecret.secretInfo();
 myOtherSecret.secretInfo();
+
+// random = 42; // throws an error bc of strict mode
+// console.log(globalThis.random);

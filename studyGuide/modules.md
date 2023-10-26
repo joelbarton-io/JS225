@@ -1,9 +1,9 @@
 # modules
 
-- softare programs are large and complex
+- softare programs are large and increasingly complex
 - having everything inside a single file leads to problems for individual developers and teams
 
-## some problems that modules help to alleviate
+## some problems that modules can help to alleviate
 
 - code "entanglement" wherein code that was once simple when it was first written, over the years with different people working on a codebase, becomes entangled and difficult to understand
 - code that is harder to comprehend at a glance as a result of the entanglement is harder to maintain
@@ -44,7 +44,7 @@
 - `__dirname`: absolute pathname to directory that contains desired module
 - `__filename`: absolute pathname of file that contains desired module
 
-## remember
+## remember:
 
 - when you have a module that wasn’t installed via `npm` you need to specify the path to the module on your local file system
 - commonJS modules are suitable for Node applications where everything resides on the same machine, but not the browser, this is where either a transpiler or ES modules come in handy

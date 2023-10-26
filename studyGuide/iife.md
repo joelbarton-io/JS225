@@ -2,14 +2,12 @@
 
 An **Immediately Invoked Function Expression (IIFE)** is a crucial concept in JavaScript, especially in the context of managing scopes and preventing variable pollution in global namespace.
 
-## Definition
+> An **IIFE** is a function that is both defined and invoked simultaneously.
 
-An **IIFE** is a function that is both defined and invoked simultaneously.
-
-## Importance of Grouping Operator
+## Importance of the Grouping Operator `()`
 
 - The enclosing parentheses (e.g `( our_fn_expression )`) around the function act as a **grouping operator**. This operator's primary role is to control the evaluation of an expression.
-- These enclosing parentheses ensure the function definition is parsed as an expression. In essence, being parsed as an expression means something has a return value. For IIFEs, that return value is the function object itself.
+- These enclosing parentheses ensure the function is parsed as an expression instead of a declaration. In essence, being parsed as an expression means something has a return value. For IIFEs, that return value is the function object itself
 
 ## Syntax Flexibility
 

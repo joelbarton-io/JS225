@@ -1,8 +1,8 @@
 # Partial Function Application
 
-- a technique that involves producing a new function by applying some of the arguments of the original function.
+- a technique that involves producing a new function by applying some of the arguments of the original function and always involves a **reduction** in the number of arguments (arity) you have to provide
 
-## Core Principles
+## Core Principles (at LS)
 
 1. **Structure**: commonly uses (3) functions: **generator**, **applicator**, and **primary**.
    - **generator**: Receives some of primary’s arguments and returns the applicator function.
@@ -20,7 +20,6 @@
 ## Insights & Examples
 
 - **Standard Language**: LS frequently mentions variables and their values being accessible "THROUGH A CLOSURE or VIA CLOSURE".
-- It seems when a new function is created, it maintains a reference to the variables it uses not just in the immediate enclosing scope of the new function but all enclosing scopes.
 
 ### general purpose partial function application example:
 
@@ -35,7 +34,7 @@ const add1 = partial(add, 1);
 add1(2); // -> 2
 ```
 
-```javascript
+```jsx
 function outerFunction(b) {
   // also enclosing scope of returned function
   function c() {

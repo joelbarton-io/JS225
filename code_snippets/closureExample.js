@@ -1,5 +1,5 @@
 function makeContainer() {
-  let privateVariable = 0; // only accessible
+  let privateVariable = 0;
 
   const container = {
     decrementData() {

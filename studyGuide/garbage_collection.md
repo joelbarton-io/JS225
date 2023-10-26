@@ -2,7 +2,11 @@
 
 ## Basics of Memory in JavaScript
 
-- JavaScript has two regions of memory: the stack and the heap - **Stack**: Stores primitives and references - **Heap**: Stores everything else except for primitives and references- Javascript determines space requirements during the creation phase (hoisting), with exceptions for string and BigInt primitives - String and BigInt primitives act similarly to being stored on the stack even though they're stored on the heap
+- JavaScript has two regions of memory: the stack and the heap
+  - **Stack**: Stores primitives and references
+  - **Heap**: Stores objects and everything else excluding references and most primitives
+- Javascript determines space requirements during the creation phase (think: hoisting), with exceptions for string and BigInt primitives
+- String and BigInt primitives act similarly to being stored on the stack even though they might be stored on the heap (implementation detail)
 
 ## The Stack vs. the Heap
 
@@ -12,7 +16,7 @@
 - **Primitive values stored on the stack don't participate in garbage collection**
 - The stack itself does NOT participate in garbage collection
 
-### TheHeap
+### The Heap
 
 - uses garbage collection to manage memory- Relies upon garbage collection to determine when a value’s reference count reaches 0- If some data is no longer reachable, that portion of heap memory can be released
 

@@ -2,6 +2,10 @@
 
 - everytime we invoke a function as a constructor, JS creates objects that link to that constructor's _function prototype_, this is how we set up behavior delegation for those create objects
 
+# [scope safe constuctor](/code_snippets/scope_safe_constructor.js)
+
+- a scope safe constructor is a function that is defined in such a way that it will behave correctly regardless of if it is invoked "correctly" (e.g using the constructor invocation syntax: `new` + `funcName()`);
+
 ## instances
 
 - individual objects of a specific type (think: `Dog` is `rascal`'s type)

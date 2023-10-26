@@ -1,6 +1,5 @@
 # delegation
 
-
 > _What's the relationship between: prototypal inheritance and delegation?_
 
 - a downstream object can be said to both _delegate to_ and _inherit from_ an upstream object via the prototype chain.

@@ -25,3 +25,4 @@
 ## [`class` syntax](./class_syntax.md)
 
 # [Modules](./modules.md)
+## [Strict Mode](./strict_mode.md)
