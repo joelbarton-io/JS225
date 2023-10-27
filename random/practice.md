@@ -288,7 +288,7 @@ const hello = "not a global value"; // a global variable
 d = "another global value";
 
 if (true) {
-  function f() {
+  function f() {f
     return function g() {};
   };
 }

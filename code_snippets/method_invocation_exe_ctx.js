@@ -10,6 +10,8 @@ const instance = Object.create(prot);
 instance.plusOne(2);
 
 /*
+Assumes browser runtime env
+
 `plusOne` receives its execution context upon its invocation on line 9.
 Since `plusOne` is invoked via "method invocation", it can  be said to
 have "implicit method execution context"; `plusOne` receives its execution
